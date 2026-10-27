@@ -7,4 +7,11 @@
 
  https://file-workshop.cyberjutsu-lab.tech:9090
 
+ # LAB
+
+Khi ta upload 1 file zip lên, trang chủ sẽ trả về những thông tin như sau 
+
+<img width="455" height="354" alt="image" src="https://github.com/user-attachments/assets/5e60d774-4a66-4d98-ada8-e3c4edd478e0" />
+
+
  
